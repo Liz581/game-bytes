@@ -6,10 +6,10 @@ import StatusBanner from './StatusBanner'
 import { fetchProducts } from '../pages/api/api'
 import '../styles/Icon.css'
 import '../styles/App.css'
-import type { Product } from '../utils/types'
+import type { Recipe } from '../utils/types'
 
 function App() {
-    const [products, setProducts] = useState<Product[]>([])
+    const [recipes, setRecipes] = useState<Recipe[]>([])
     const [status, setStatus] = useState('')
     const [query, setQuery] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
@@ -19,11 +19,11 @@ function App() {
     const loadProducts = async (query = '') => {
         try {
             const response = await fetchProducts(query)
-            setProducts(response.products)
+            setRecipes(response.recipes)
             setTotalPages(response.totalPages)
         } catch (error) {
-            console.error('Error fetching products:', error)
-            setStatus('Failed to load products')
+            console.error('Error fetching recipes:', error)
+            setStatus('Failed to load recipes')
         }
     }
     useEffect(() => {
@@ -53,7 +53,7 @@ function App() {
                             className="icon"
                         />
                     </a>
-                    <span className="tooltip">Add Product</span>
+                    <span className="tooltip">Add Recipe</span>
                 </div>
                 <div className="header-divider">
                     <a href="/dashboard" className="header-link">
@@ -78,13 +78,13 @@ function App() {
                             className="icon"
                         />
                     </a>
-                    <span className="tooltip">Delete Product</span>
+                    <span className="tooltip">Delete Recipe</span>
                 </div>
                 <form action="/api/auth/signout" className="header-divider">
                     <button id="logout" type="submit" className="header-link">
                         <img src="/logout.svg" alt="Logout" className="icon" />
                     </button>
-                    <span className="tooltip">Delete Product</span>
+                    <span className="tooltip">Sign Out</span>
                 </form>
             </header>
             {status && (
@@ -94,7 +94,7 @@ function App() {
                 <ProductForm
                     mode="add"
                     onProductAdded={() => {
-                        setStatus('Product added successfully')
+                        setStatus('Recipe added successfully')
                         setShowForm('none')
                         loadProducts()
                         setCurrentPage(1)
@@ -105,7 +105,7 @@ function App() {
                 <ProductForm
                     mode="delete"
                     onProductDeleted={() => {
-                        setStatus('Product deleted successfully')
+                        setStatus('Recipe deleted successfully')
                         setShowForm('none')
                         loadProducts()
                         setCurrentPage(1)
@@ -121,7 +121,7 @@ function App() {
                         setCurrentPage={setCurrentPage}
                     />
                     <ProductList
-                        products={products}
+                        recipes={recipes}
                         currentPage={currentPage}
                         totalPages={totalPages}
                         setCurrentPage={setCurrentPage}

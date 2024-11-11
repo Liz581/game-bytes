@@ -11,7 +11,7 @@ const Search: React.FC<SearchProps> = ({ query, setQuery, setCurrentPage }) => {
     return (
         <div className="search-container">
             <form className="search-form" role="search">
-                <h2 className="search-form-title">Search Products</h2>
+                <h2 className="search-form-title">Search Recipes</h2>
                 <div className="search-form-group">
                     <input
                         type="text"
@@ -23,7 +23,7 @@ const Search: React.FC<SearchProps> = ({ query, setQuery, setCurrentPage }) => {
                             setCurrentPage(1)
                             console.log(e.target.value)
                         }}
-                        placeholder="Enter product name..."
+                        placeholder="Enter recipe name..."
                         required
                     />
                 </div>

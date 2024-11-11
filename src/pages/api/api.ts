@@ -2,8 +2,12 @@ import {
     collection,
     getFirestore,
     connectFirestoreEmulator,
+    getDocs,
+    addDoc,
+    deleteDoc,
+    doc,
 } from 'firebase/firestore'
-import type { Product } from '../../utils/types'
+import type { Product, Recipe } from '../../utils/types'
 import { app } from '../../firebase/client'
 
 const db = getFirestore(app)
@@ -19,14 +23,33 @@ if (import.meta.env.PUBLIC_EMULATOR === '1')
 export const fetchProducts = async (
     queryStr = '',
     pageSize = 10
-): Promise<{ products: Product[]; totalPages: number }> => {
-    const productsRef = collection(db, 'products')
-    const products: Product[] = []
+): Promise<{ recipes: Recipe[]; totalPages: number }> => {
+    const recipesRef = collection(db, 'recipes')
+    const recipes: Recipe[] = []
     let totalPages = 0
+    const querySnapshot = await getDocs(recipesRef)
 
-    // Your code here
+    querySnapshot.forEach((doc) => {
+        // console.log(doc.data().id, ' => ', doc.data().name)
+        if (doc.data().name.includes(queryStr) || queryStr == '') {
+            const p: Recipe = {
+                id: doc.data().id,
+                name: doc.data().name,
+                game: doc.data().game,
+                description: doc.data().description,
+                ingredients: doc.data().ingredients,
+                steps: doc.data().steps,
+                image_url: doc.data().image_url,
+            }
 
-    return { products, totalPages }
+            recipes.push(p)
+        }
+    })
+
+    recipes.sort((a, b) => a.id - b.id)
+    totalPages = Math.ceil(recipes.length / pageSize)
+
+    return { recipes, totalPages }
 }
 
 // TODO Finalize this function to add a product to Firestore
@@ -34,13 +57,34 @@ export const fetchProducts = async (
 export const addProduct = async (product: Omit<Product, 'id'>) => {
     let newID = 0
 
-    // Your code here
+    const query = await getDocs(collection(db, 'products'))
+    newID = query.size + 1
+
+    const docRef = await addDoc(collection(db, 'products'), {
+        id: newID,
+        name: product.name,
+        image_url: product.image_url,
+        deleted: product.deleted,
+    })
+
+    console.log(docRef)
 
     return { id: newID, ...product }
 }
 
 // TODO Finalize this function to delete a product from Firestore
 export const deleteProduct = async (productId: number) => {
-    // Your code here
+    const data = await getDocs(collection(db, 'products'))
+    let docID = ''
+
+    data.forEach((document) => {
+        if (document.data().id == productId) {
+            console.log(document)
+            docID = String(document.id)
+        }
+    })
+
+    // const document = doc(db, 'products', String(productId))
+    await deleteDoc(doc(db, 'products', docID))
     return { id: 0 }
 }

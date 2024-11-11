@@ -8,11 +8,28 @@ import '../styles/App.css'
 // If the session is verified, redirect the user to the dashboard
 // HINT: See index.astro for a reference on how to do this
 const auth = getAuth(app)
-// Your code here
+const sessionCookie = Astro.cookies.get('session')?.value
+// validate with firebase auth, how to verify cookie
+if (sessionCookie) {
+    try {
+        // Verify session cookie
+        const decodedCookie = await auth.verifySessionCookie(sessionCookie)
+        // If valid, redirect to dashboard
+        if (decodedCookie) return Astro.redirect('/dashboard')
+    } catch (error) {
+        console.log('Session verification failed:', error)
+        // If verification fails, clear the invalid cookie
+        Astro.cookies.delete('session', { path: '/' })
+    }
+}
 ---
 
 <Layout title="Sign in">
     <body>
+        <div class="background-screen">
+        <div class="title-form">
+            <h1>Welcome to Game Bytes!</h1>
+        </div>
         <div>
             <form class="login-form">
                 <header>Login</header>
@@ -28,6 +45,7 @@ const auth = getAuth(app)
                     <a href="/register">Create Account</a>
                 </div>
             </form>
+        </div>
         </div>
     </body>
 </Layout>
@@ -103,6 +121,7 @@ const auth = getAuth(app)
         width: 100%;
         max-width: 400px;
         margin: auto;
+        background-color: #ffffff;
     }
 
     /* Style the input fields */
@@ -145,5 +164,27 @@ const auth = getAuth(app)
 
     .login-form p {
         color: red;
+    }
+
+    .title-form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        width: 100%;
+        max-width: 400px;
+        margin: auto;
+        background-color: #def2f9;
+    }
+
+    .background-screen {
+        background-color: #def2f9 !important;
+        height: 100%;
+    }
+
+    html, body {
+        height: 100%; /* Full viewport height */
+        margin: 0; /* Remove default margin */
     }
 </style>

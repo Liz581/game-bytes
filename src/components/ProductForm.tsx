@@ -13,6 +13,10 @@ const ProductForm: React.FC<ProductFormProps> = ({
     onProductDeleted,
 }) => {
     const [name, setName] = useState('')
+    const [game, setGame] = useState('')
+    const [description, setDescription] = useState('')
+    const [ingredients, setIngredients] = useState('')
+    const [steps, setSteps] = useState('')
     const [imageUrl, setImageUrl] = useState('')
     const [productId, setProductId] = useState('')
 
@@ -55,8 +59,52 @@ const ProductForm: React.FC<ProductFormProps> = ({
                                 type="text"
                                 id="name"
                                 value={name}
-                                placeholder="Enter product name..."
+                                placeholder="Enter recipe name..."
                                 onChange={(e) => setName(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="game"></label>
+                            <input
+                                type="text"
+                                id="game"
+                                value={game}
+                                placeholder="Enter game reference..."
+                                onChange={(e) => setGame(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="description"></label>
+                            <input
+                                type="text"
+                                id="description"
+                                value={description}
+                                placeholder="Enter recipe description..."
+                                onChange={(e) => setDescription(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="ingredients"></label>
+                            <input
+                                type="text"
+                                id="ingredients"
+                                value={ingredients}
+                                placeholder="Enter recipe ingredients..."
+                                onChange={(e) => setIngredients(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="steps"></label>
+                            <input
+                                type="text"
+                                id="steps"
+                                value={steps}
+                                placeholder="Enter recipe steps..."
+                                onChange={(e) => setSteps(e.target.value)}
                                 required
                             />
                         </div>
@@ -66,7 +114,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
                                 type="url"
                                 id="imageUrl"
                                 value={imageUrl}
-                                placeholder="Enter image URL..."
+                                placeholder="Enter image URL of in game treat..."
                                 onChange={(e) => setImageUrl(e.target.value)}
                             />
                         </div>
@@ -78,7 +126,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
                             type="text"
                             id="productId"
                             value={productId}
-                            placeholder="Enter product ID..."
+                            placeholder="Enter recipe ID..."
                             onChange={(e) => setProductId(e.target.value)}
                             required
                         />

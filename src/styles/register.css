@@ -10,6 +10,7 @@
     width: 100%;
     max-width: 400px;
     margin: auto;
+    background-color: #ffffff;
 }
 
 /* Style the input fields */
@@ -51,4 +52,15 @@
 
 .signup-form p {
     color: red;
+}
+
+.background-screen {
+    background-color: #def2f9 !important;
+    height: 100%;
+}
+
+html, body {
+    height: 100%; /* Full viewport height */
+    margin: 0; /* Remove default margin */
+    align-items: center;
 }

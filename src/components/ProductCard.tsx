@@ -1,23 +1,23 @@
 import type React from 'react'
-import type { Product } from '../utils/types'
+import type { Recipe } from '../utils/types'
 
 interface ProductCardProps {
-    product: Product
+    recipe: Recipe
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ recipe }) => {
     return (
-        <div key={product.id} className="product-card" role="article">
+        <div key={recipe.id} className="product-card" role="article">
             <img
-                src={product.image_url || '/placeholder.png'}
-                alt={product.name}
+                src={recipe.image_url || '/placeholder.png'}
+                alt={recipe.name}
                 onError={(e) => {
                     const target = e.target as HTMLImageElement
                     target.src = '/placeholder.png'
                 }}
             />
-            <h3>{product.name}</h3>
-            <p>ID: {product.id}</p>
+            <h3>{recipe.name}</h3>
+            <p>ID: {recipe.id}</p>
         </div>
     )
 }

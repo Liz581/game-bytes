@@ -6,6 +6,7 @@
         'Open Sans',
         'Helvetica Neue',
         sans-serif;
+    background-color: #def2f9;
 }
 
 .App-header {
@@ -17,6 +18,7 @@
 
 main {
     padding: 20px;
+    background-color: #def2f9;
 }
 body {
     font-family:
@@ -27,6 +29,7 @@ body {
         'Helvetica Neue',
         sans-serif;
     font-weight: 500;
+    background-color: #def2f9;
 }
 header {
     display: flex;

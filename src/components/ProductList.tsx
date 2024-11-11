@@ -1,16 +1,16 @@
 import React from 'react'
-import type { Product } from '../utils/types'
+import type { Recipe } from '../utils/types'
 import ProductCard from './ProductCard'
 import '../styles/ProductList.css'
 
 interface ProductListProps {
-    products: Product[]
+    recipes: Recipe[]
     currentPage: number
     totalPages: number
     setCurrentPage: (page: number) => void
 }
 const ProductList: React.FC<ProductListProps> = ({
-    products,
+    recipes,
     currentPage,
     totalPages,
     setCurrentPage,
@@ -39,13 +39,18 @@ const ProductList: React.FC<ProductListProps> = ({
     // This component is given the full list of products and the current page
     // Return a list of ProductCard components for the products on the current page
     const renderProducts = () => {
-        // Your code here
+        let lastIndex = currentPage * 10
+        const firstIndex = lastIndex - 10
+
+        if (lastIndex > recipes.length) lastIndex = recipes.length
+        const slicedProducts = recipes.slice(firstIndex, lastIndex)
+        return slicedProducts.map((p, i) => <ProductCard key={i} recipe={p} />)
     }
 
     return (
         <div className="product-list">
-            <h2>Products</h2>
-            {products.length === 0 ? (
+            <h2>Recipes</h2>
+            {recipes.length === 0 ? (
                 <p>No products found.</p>
             ) : (
                 <div className="product-grid">{renderProducts()}</div>

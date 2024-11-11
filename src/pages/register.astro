@@ -9,11 +9,25 @@ const auth = getAuth(app)
 // TODO Check if the user has an active session
 // If the session is verified, redirect the user to the dashboard
 // HINT: See index.astro for a reference on how to do this
-// Your code here
+const sessionCookie = Astro.cookies.get('session')?.value
+
+if (sessionCookie) {
+    try {
+        // Verify session cookie
+        const decodedCookie = await auth.verifySessionCookie(sessionCookie)
+        // If valid, redirect to dashboard
+        if (decodedCookie) return Astro.redirect('/dashboard')
+    } catch (error) {
+        console.log('Session verification failed:', error)
+        // If verification fails, clear the invalid cookie
+        Astro.cookies.delete('session', { path: '/' })
+    }
+}
 ---
 
 <Layout title="Register">
     <body>
+        <div class="background-screen">
         <div class="create-user">
             <form action="/api/auth/register" method="post" class="signup-form">
                 <header class="form-title">Create a New User</header>
@@ -52,6 +66,7 @@ const auth = getAuth(app)
                     <p id="msg-for-failure-sucess"></p>
                 </div>
             </form>
+        </div>
         </div>
     </body>
 </Layout>
