@@ -7,7 +7,7 @@ import {
     deleteDoc,
     doc,
 } from 'firebase/firestore'
-import type { Product, Recipe } from '../../utils/types'
+import type { Recipe } from '../../utils/types'
 import { app } from '../../firebase/client'
 
 const db = getFirestore(app)
@@ -54,37 +54,40 @@ export const fetchProducts = async (
 
 // TODO Finalize this function to add a product to Firestore
 // The new product should have an ID that is one greater than the current maximum ID in the db
-export const addProduct = async (product: Omit<Product, 'id'>) => {
+export const addRecipe = async (recipe: Omit<Recipe, 'id'>) => {
     let newID = 0
 
-    const query = await getDocs(collection(db, 'products'))
+    const query = await getDocs(collection(db, 'recipes'))
     newID = query.size + 1
 
-    const docRef = await addDoc(collection(db, 'products'), {
+    const docRef = await addDoc(collection(db, 'recipes'), {
         id: newID,
-        name: product.name,
-        image_url: product.image_url,
-        deleted: product.deleted,
+        name: recipe.name,
+        game: recipe.game,
+        description: recipe.description,
+        ingredients: recipe.ingredients,
+        steps: recipe.steps,
+        image_url: recipe.image_url,
     })
 
     console.log(docRef)
 
-    return { id: newID, ...product }
+    return { id: newID, ...recipe }
 }
 
 // TODO Finalize this function to delete a product from Firestore
-export const deleteProduct = async (productId: number) => {
-    const data = await getDocs(collection(db, 'products'))
+export const deleteRecipe = async (recipeId: number) => {
+    const data = await getDocs(collection(db, 'recipes'))
     let docID = ''
 
     data.forEach((document) => {
-        if (document.data().id == productId) {
+        if (document.data().id == recipeId) {
             console.log(document)
             docID = String(document.id)
         }
     })
 
     // const document = doc(db, 'products', String(productId))
-    await deleteDoc(doc(db, 'products', docID))
+    await deleteDoc(doc(db, 'recipes', docID))
     return { id: 0 }
 }

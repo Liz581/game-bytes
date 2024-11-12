@@ -99,3 +99,9 @@ header {
     padding: 0;
     font-size: 1.2rem;
 }
+
+.icon {
+    /* font-size: 30px;  Set the icon size */
+    color: #af9ed7;      /* Set the icon color */
+    /* transition: transform 0.3s ease; Add a transition for a hover effect */
+  }

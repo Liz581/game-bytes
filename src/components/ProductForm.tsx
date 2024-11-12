@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { addProduct, deleteProduct } from '../pages/api/api'
+import { addRecipe, deleteRecipe } from '../pages/api/api'
 import '../styles/ProductForm.css'
 
 interface ProductFormProps {
@@ -18,23 +18,26 @@ const ProductForm: React.FC<ProductFormProps> = ({
     const [ingredients, setIngredients] = useState('')
     const [steps, setSteps] = useState('')
     const [imageUrl, setImageUrl] = useState('')
-    const [productId, setProductId] = useState('')
+    const [recipeId, setRecipeId] = useState('')
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         try {
             if (mode === 'add') {
-                await addProduct({
+                await addRecipe({
                     name,
+                    game,
+                    description,
+                    ingredients,
+                    steps,
                     image_url: imageUrl,
-                    deleted: false,
                 })
                 setName('')
                 setImageUrl('')
                 onProductAdded?.()
             } else {
-                await deleteProduct(Number(productId))
-                setProductId('')
+                await deleteRecipe(Number(recipeId))
+                setRecipeId('')
                 onProductDeleted?.()
             }
         } catch (error) {
@@ -125,9 +128,9 @@ const ProductForm: React.FC<ProductFormProps> = ({
                         <input
                             type="text"
                             id="productId"
-                            value={productId}
+                            value={recipeId}
                             placeholder="Enter recipe ID..."
-                            onChange={(e) => setProductId(e.target.value)}
+                            onChange={(e) => setRecipeId(e.target.value)}
                             required
                         />
                     </div>
