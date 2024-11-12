@@ -6,7 +6,7 @@ import { getAuth } from 'firebase-admin/auth'
 import '../styles/App.css'
 const auth = getAuth(app)
 
-// TODO Check if the user has an active session
+// Check if the user has an active session
 // If the session is verified, redirect the user to the dashboard
 // HINT: See index.astro for a reference on how to do this
 const sessionCookie = Astro.cookies.get('session')?.value

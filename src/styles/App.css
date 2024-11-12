@@ -104,4 +104,20 @@ header {
     /* font-size: 30px;  Set the icon size */
     color: #af9ed7;      /* Set the icon color */
     /* transition: transform 0.3s ease; Add a transition for a hover effect */
-  }
+}
+
+h1 {
+    font-family: "Pixelify Sans", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 35px;
+    /* font-optical-sizing: auto; */
+}
+
+
+/* .pixelify-sans-<uniquifier> {
+    font-family: "Pixelify Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: <weight>;
+    font-style: normal;
+} */

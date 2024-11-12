@@ -5,12 +5,12 @@ import Layout from '../layouts/Layout.astro'
 import App from '../components/App'
 const auth = getAuth(app)
 
-// TODO Check if the user has an active session
+// Check if the user has an active session
 // HINT: See index.astro for a reference on how to do this
 // If not, redirect the user to the signin page
 const sessionCookie = Astro.cookies.get('session')?.value
 
-// TODO Retrieve the session cookie and verify it
+// Retrieve the session cookie and verify it
 // Use Firebase verifySessionCookie method to verify the session cookie
 if (sessionCookie) {
     const decodedCookie = await auth.verifySessionCookie(sessionCookie)
@@ -18,7 +18,7 @@ if (sessionCookie) {
     // Get the user details from the decoded cookie
     const user = await auth.getUser(decodedCookie.uid)
 
-    // TODO If the user is not found, redirect the user to the signin page
+    // If the user is not found, redirect the user to the signin page
     if (!user) return Astro.redirect('/signin')
 } else {
     return Astro.redirect('/signin')

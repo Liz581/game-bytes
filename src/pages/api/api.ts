@@ -15,7 +15,7 @@ const db = getFirestore(app)
 if (import.meta.env.PUBLIC_EMULATOR === '1')
     connectFirestoreEmulator(db, 'localhost', 8080)
 
-// TODO Finalize this function to fetch ALL the products from Firestore
+// Fetch ALL the products from Firestore
 // The function also takes the query as an argument to filter the products.
 // The query can be empty. In this case, return all the products.
 // If the query is not empty, filter the results based on the query.
@@ -52,7 +52,7 @@ export const fetchProducts = async (
     return { recipes, totalPages }
 }
 
-// TODO Finalize this function to add a product to Firestore
+// Add a product to Firestore
 // The new product should have an ID that is one greater than the current maximum ID in the db
 export const addRecipe = async (recipe: Omit<Recipe, 'id'>) => {
     let newID = 0
@@ -75,7 +75,7 @@ export const addRecipe = async (recipe: Omit<Recipe, 'id'>) => {
     return { id: newID, ...recipe }
 }
 
-// TODO Finalize this function to delete a product from Firestore
+// Delete a product from Firestore
 export const deleteRecipe = async (recipeId: number) => {
     const data = await getDocs(collection(db, 'recipes'))
     let docID = ''

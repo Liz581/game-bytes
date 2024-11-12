@@ -7,13 +7,12 @@ import { fetchProducts } from '../pages/api/api'
 import '../styles/Icon.css'
 import '../styles/App.css'
 import type { Recipe } from '../utils/types'
+import { LuHome } from "react-icons/lu";
+import { IoIosAddCircleOutline } from "react-icons/io";
+import { FcFullTrash } from "react-icons/fc";
+import { PiSignOutBold } from "react-icons/pi";
 // import Container from 'react-bootstrap/Container';
 // import Navbar from 'react-bootstrap/Navbar';
-// import { FaBars } from "react-icons/fa";
-import { FcFullTrash } from "react-icons/fc";
-import { TiHome } from "react-icons/ti";
-import { IoIosAddCircle } from "react-icons/io";
-import { PiSignOutBold } from "react-icons/pi";
 // import { useRef } from "react";
 
 function App() {
@@ -57,29 +56,12 @@ function App() {
             <header>
             <img
                 src="/game_byte_temp_logo.png"
-                alt="Delete Product"
                 className="icon"
             />
 			<h1>Game Bytes</h1>
                 <div className="header-divider">
-                    <a
-                        className="header-link"
-                        href="#"
-                        onClick={(e) => {
-                            e.preventDefault()
-                            setShowForm(showForm === 'add' ? 'none' : 'add')
-                        }}
-                    >
-                    <IoIosAddCircle
-                        // alt="Delete Product"
-                        className="icon" // You can style this icon just like the <img> element
-                    />
-                    </a>
-                    <span className="tooltip">Add Recipe</span>
-                </div>
-                <div className="header-divider">
                     <a href="/dashboard" className="header-link">
-                        <TiHome
+                        <LuHome
                             // alt="Delete Product"
                             className="icon" // You can style this icon just like the <img> element
                         />
@@ -92,17 +74,26 @@ function App() {
                         href="#"
                         onClick={(e) => {
                             e.preventDefault()
+                            setShowForm(showForm === 'add' ? 'none' : 'add')
+                        }}
+                    >
+                    <IoIosAddCircleOutline
+                        className="icon" // You can style this icon just like the <img> element
+                    />
+                    </a>
+                    <span className="tooltip">Add Recipe</span>
+                </div>
+                <div className="header-divider">
+                    <a
+                        className="header-link"
+                        href="#"
+                        onClick={(e) => {
+                            e.preventDefault()
                             setShowForm(
                                 showForm === 'delete' ? 'none' : 'delete'
                             )
                         }}
                     >
-                        
-                        {/* <img
-                            src="/delete.svg"
-                            alt="Delete Product"
-                            className="icon"
-                        /> */}
                         <FcFullTrash
                             // alt="Delete Product"
                             className="icon" // You can style this icon just like the <img> element
