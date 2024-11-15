@@ -2,19 +2,18 @@ import React, { useState, useEffect } from 'react'
 import ProductList from './ProductList'
 import ProductForm from './ProductForm'
 import ProductDetails from './ProductDetails'
+import Profile from './Profile'
 import Search from './Search'
 import StatusBanner from './StatusBanner'
 import { fetchProducts } from '../pages/api/api'
 import '../styles/Icon.css'
 import '../styles/App.css'
 import type { Recipe } from '../utils/types'
-import { LuHome } from "react-icons/lu";
+import { LuHome, LuUser } from "react-icons/lu";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { FcFullTrash } from "react-icons/fc";
 import { PiSignOutBold } from "react-icons/pi";
-// import Container from 'react-bootstrap/Container';
-// import Navbar from 'react-bootstrap/Navbar';
-// import { useRef } from "react";
+
 
 function App() {
     const [recipes, setRecipes] = useState<Recipe[]>([])
@@ -22,8 +21,9 @@ function App() {
     const [query, setQuery] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)
-    const [showForm, setShowForm] = useState<'none' | 'add' | 'delete' | 'recipe'>('none')
+    const [showForm, setShowForm] = useState<'none' | 'add' | 'delete' | 'recipe' | 'profile'>('none')
     const [pickedRecipe, setPickedRecipe] = useState<Recipe | null>(null)
+    // const [user, setUser] = useState('')
 
     const loadProducts = async (query = '') => {
         try {
@@ -100,6 +100,23 @@ function App() {
                     </a>
                     <span className="tooltip">Delete Recipe</span>
                 </div>
+                <div className="header-divider">
+                    <a
+                        className="header-link"
+                        href="#"
+                        onClick={(e) => {
+                            e.preventDefault()
+                            setShowForm(
+                                showForm === 'profile' ? 'none' : 'profile'
+                            )
+                        }}
+                    >
+                        <LuUser
+                            className="icon" // You can style this icon just like the <img> element
+                        />
+                    </a>
+                    <span className="tooltip">Profile</span>
+                </div>
                 <form action="/api/auth/signout" className="header-divider">
                     <button id="logout" type="submit" className="header-link">
                         <PiSignOutBold
@@ -141,9 +158,12 @@ function App() {
                     </div>
                 )
             }
+            {showForm === 'profile' && (
+                <Profile user={'user'}/>
+            )
+            }
             {showForm === 'none' && (
                 <>
-                    {/* {" "} */}
                     <Search
                         query={query}
                         setQuery={setQuery}
