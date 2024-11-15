@@ -9,7 +9,7 @@ import '../styles/ProductDetails.css'
 // }
 
 interface ProductDetailProps {
-    recipe: Recipe,
+    recipe: Recipe
     onClose: () => void
 }
 
@@ -17,12 +17,12 @@ const ProductDetails: React.FC<ProductDetailProps> = ({ recipe, onClose }) => {
     return (
         <div className="product-form-container">
             <button
-                    type="submit"
-                    id="submitButton"
-                    className={"buttonReturn"}
-                    onClick={onClose}
-                >
-                    Arrow
+                type="submit"
+                id="submitButton"
+                className={'buttonReturn'}
+                onClick={onClose}
+            >
+                Back
             </button>
             <img
                 src={recipe.image_url || '/placeholder.png'}
@@ -32,9 +32,17 @@ const ProductDetails: React.FC<ProductDetailProps> = ({ recipe, onClose }) => {
                     target.src = '/placeholder.png'
                 }}
             />
-            <h2 className="product-form-title">
-                {recipe.name}
-            </h2>
+            <button
+                type="submit"
+                id="likeButton"
+                className={'buttonLike'}
+                onClick={() => {
+                    alert('You liked this recipe!')
+                }}
+            >
+                Like
+            </button>
+            <h2 className="product-form-title">{recipe.name}</h2>
             <h3>{recipe.game}</h3>
             <div>
                 <h4>Description</h4>
