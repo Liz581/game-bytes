@@ -30,8 +30,13 @@ export const fetchProducts = async (
     const querySnapshot = await getDocs(recipesRef)
 
     querySnapshot.forEach((doc) => {
-        // console.log(doc.data().id, ' => ', doc.data().name)
-        if (doc.data().name.includes(queryStr) || queryStr == '') {
+        // case-sensitive check
+        const dataTemp = (doc.data().name).toLowerCase()
+        const queryTemp = queryStr.toLowerCase()
+
+        // console.log(queryTemp, ' => ', dataTemp)
+
+        if (dataTemp.includes(queryTemp) || queryStr == '') {
             const p: Recipe = {
                 id: doc.data().id,
                 name: doc.data().name,
