@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import ProductList from './ProductList'
 import ProductForm from './ProductForm'
+import ProductDetails from './ProductDetails'
 import Search from './Search'
 import StatusBanner from './StatusBanner'
 import { fetchProducts } from '../pages/api/api'
@@ -22,6 +23,8 @@ function App() {
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)
     const [showForm, setShowForm] = useState<'none' | 'add' | 'delete'>('none')
+    const [showRecipe, setShowRecipe] = useState<'none' | 'show'>('none')
+    const [pickedRecipe, setPickedRecipe] = useState<Recipe | null>(null)
 
     const loadProducts = async (query = '') => {
         try {
@@ -32,6 +35,11 @@ function App() {
             console.error('Error fetching recipes:', error)
             setStatus('Failed to load recipes')
         }
+    }
+
+    const handleCardClick = (recipe: Recipe) => {
+        setPickedRecipe(recipe)
+        setShowRecipe('show')
     }
     useEffect(() => {
         // Load every product on initial render
@@ -136,6 +144,13 @@ function App() {
                     }}
                 />
             )}
+            {
+                showRecipe === 'show' && pickedRecipe && (
+                    <div>
+                        <ProductDetails recipe={pickedRecipe} onClose={() => setShowRecipe('none')} />
+                    </div>
+                )
+            }
             {showForm === 'none' && (
                 <>
                     {/* {" "} */}
@@ -149,6 +164,7 @@ function App() {
                         currentPage={currentPage}
                         totalPages={totalPages}
                         setCurrentPage={setCurrentPage}
+                        onCardClick={handleCardClick}
                     />
                 </>
             )}

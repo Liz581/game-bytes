@@ -9,24 +9,18 @@ import '../styles/ProductDetails.css'
 // }
 
 interface ProductDetailProps {
-    recipe: Recipe
+    recipe: Recipe,
+    onClose: () => void
 }
 
-const ProductDetails: React.FC<ProductDetailProps> = ({ recipe }) => {
-    // const [name, setName] = useState('')
-    // const [game, setGame] = useState('')
-    // const [description, setDescription] = useState('')
-    // const [ingredients, setIngredients] = useState('')
-    // const [steps, setSteps] = useState('')
-    // const [imageUrl, setImageUrl] = useState('')
-    // const [recipeId, setRecipeId] = useState('')
-
+const ProductDetails: React.FC<ProductDetailProps> = ({ recipe, onClose }) => {
     return (
         <div className="product-form-container">
             <button
                     type="submit"
                     id="submitButton"
                     className={"buttonReturn"}
+                    onClick={onClose}
                 >
                     Arrow
             </button>

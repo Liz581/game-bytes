@@ -2,12 +2,13 @@ import type React from 'react'
 import type { Recipe } from '../utils/types'
 
 interface ProductCardProps {
-    recipe: Recipe
+    recipe: Recipe,
+    onClick: () => void
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ recipe }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ recipe, onClick }) => {
     return (
-        <div key={recipe.id} className="product-card" role="article">
+        <div key={recipe.id} className="product-card" role="article" onClick={onClick}>
             <img
                 src={recipe.image_url || '/placeholder.png'}
                 alt={recipe.name}

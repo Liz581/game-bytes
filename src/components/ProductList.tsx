@@ -7,13 +7,15 @@ interface ProductListProps {
     recipes: Recipe[]
     currentPage: number
     totalPages: number
-    setCurrentPage: (page: number) => void
+    setCurrentPage: (page: number) => void,
+    onCardClick: (recipe: Recipe) => void
 }
 const ProductList: React.FC<ProductListProps> = ({
     recipes,
     currentPage,
     totalPages,
     setCurrentPage,
+    onCardClick
 }) => {
     const renderPaginationLinks = () => {
         const links = []
@@ -44,7 +46,7 @@ const ProductList: React.FC<ProductListProps> = ({
 
         if (lastIndex > recipes.length) lastIndex = recipes.length
         const slicedProducts = recipes.slice(firstIndex, lastIndex)
-        return slicedProducts.map((p, i) => <ProductCard key={i} recipe={p} />)
+        return slicedProducts.map((p, i) => <ProductCard key={i} recipe={p} onClick={() => onCardClick(p)} />)
     }
 
     return (
