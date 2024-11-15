@@ -6,6 +6,7 @@ welcome to game bytes! an application that provides real-life recipes inspired b
 
 - User account database established/Proper working user authentication system: Logging in/out and saving users that have already made an account before.
 - Database for recipes: Creates the DB, can add/delete/access the recipes
+- Searching: Find recipes based off of name of the dish
 - Home Page: Central hub of the website
 - Recipe Page: See the details of a recipe that is clicked on
 - User Page: See a user profile, not yet connected to auth database
