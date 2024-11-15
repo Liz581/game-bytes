@@ -37,8 +37,11 @@ const ProductDetails: React.FC<ProductDetailProps> = ({ recipe, onClose }) => {
             </h2>
             <h3>{recipe.game}</h3>
             <div>
-                <h4>{recipe.description}</h4>
+                <h4>Description</h4>
+                <p>{recipe.description}</p>
+                <h4>Ingredients</h4>
                 <p>{recipe.ingredients}</p>
+                <h4>Steps</h4>
                 <p>{recipe.steps}</p>
             </div>
         </div>

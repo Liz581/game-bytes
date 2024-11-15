@@ -77,3 +77,7 @@
     background-color: #f44336;
     transition: background-color 0.3s ease;
 }
+
+.div img {
+    max-width: 500px;
+}

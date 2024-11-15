@@ -22,8 +22,7 @@ function App() {
     const [query, setQuery] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)
-    const [showForm, setShowForm] = useState<'none' | 'add' | 'delete'>('none')
-    const [showRecipe, setShowRecipe] = useState<'none' | 'show'>('none')
+    const [showForm, setShowForm] = useState<'none' | 'add' | 'delete' | 'recipe'>('none')
     const [pickedRecipe, setPickedRecipe] = useState<Recipe | null>(null)
 
     const loadProducts = async (query = '') => {
@@ -39,7 +38,7 @@ function App() {
 
     const handleCardClick = (recipe: Recipe) => {
         setPickedRecipe(recipe)
-        setShowRecipe('show')
+        setShowForm('recipe')
     }
     useEffect(() => {
         // Load every product on initial render
@@ -50,14 +49,6 @@ function App() {
         loadProducts(query)
     }, [query])
 
-    // const navRef = useRef();
-
-	// const showNavbar = () => {
-    //     // Check if navRef.current exists before accessing it
-    //     if (navRef.current) {
-    //       navRef.current.classList.toggle("responsive_nav");
-    //     }
-    //   };
 
     return (
         <div>
@@ -144,10 +135,9 @@ function App() {
                     }}
                 />
             )}
-            {
-                showRecipe === 'show' && pickedRecipe && (
+            {showForm === 'recipe' && pickedRecipe && (
                     <div>
-                        <ProductDetails recipe={pickedRecipe} onClose={() => setShowRecipe('none')} />
+                        <ProductDetails recipe={pickedRecipe} onClose={() => setShowForm('none')} />
                     </div>
                 )
             }
