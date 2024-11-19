@@ -2,12 +2,14 @@ import { defineConfig } from 'astro/config'
 import netlify from '@astrojs/netlify/functions'
 import react from '@astrojs/react'
 
+// production firebase instance
+// development firebase instance
 // https://vitejs.dev/config/dep-optimization-options.html#optimizedeps-exclude
 import node from '@astrojs/node'
 
 // https://astro.build/config
 export default defineConfig({
-    output: 'hybrid',
+    output: 'server',
     server: {
         port: 3000,
     },
